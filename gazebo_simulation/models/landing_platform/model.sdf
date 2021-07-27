@@ -1,0 +1,31 @@
+<?xml version="1.0" ?>
+<sdf version="1.5">
+  <model name="landing_platform">
+    <static>true</static>
+    <link name="platform">
+      <pose>0 0 0 0 0 0</pose>
+      <collision name="collision">
+        <geometry>
+          <mesh>
+            <uri>model://landing_platform/meshes/landing_platform.dae</uri>
+            <scale>1e-3 1e-3 1e-3</scale>
+          </mesh>
+        </geometry>
+      </collision>
+      <visual name="visual">
+        <geometry>
+          <mesh>
+            <uri>model://landing_platform/meshes/landing_platform.dae</uri>
+            <scale>1e-3 1e-3 1e-3</scale>
+          </mesh>
+        </geometry>
+        <material>
+          <script>
+            <name>Gazebo/WoodPallet</name>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+          </script>
+        </material>
+      </visual>
+    </link>
+  </model>
+</sdf>
