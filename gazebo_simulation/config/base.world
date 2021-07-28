@@ -29,17 +29,17 @@
       <uri>model://ground_plane</uri>
     </include>
     <!-- Table? -->
-    <model name="table">
+    <!-- <model name="table">
       <include>
         <uri>model://landing_platform</uri>
       </include>
-    </model>
+    </model> -->
     <!-- World state -->
     <state world_name='default'>
-      <model name='table'>
-        <!--scale>0.5 0.5 0.5</scale-->
+      <!-- <model name='table'>
+        <scale>0.5 0.5 0.5</scale>
         <pose frame=''>0.0 2.0 0.0 0 0 0.0</pose>
-      </model>
+      </model> -->
     </state>
   </world>
 </sdf>
