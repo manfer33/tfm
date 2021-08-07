@@ -77,4 +77,6 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
         <!-- PID params for Ardupilot setPose pose control -->
         <rosparam file="$(find ual_backend_mavros)/config/pid.yaml" />
     </node>
+
+    <!-- <node pkg="gazebo_simulation" type="base_experiment.py" name="move_arm" output="screen"/> -->
 </launch>
