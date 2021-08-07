@@ -26,6 +26,8 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 	<arg name="aci_backend" default="ros_control"/>
 
+	<arg name="eef_mass" default="0.8"/>
+
     <!-- Launch Gazebo simulation -->
 	<rosparam param="/use_sim_time">true</rosparam>
     <node pkg="px4_bringup" type="launch_gzworld.py" name="gazebo_world" output="screen"
@@ -45,6 +47,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
         <arg name="y" value="-3.0"/>
         <arg name="z" value="0.25"/>
         <arg name="yaw" value="1.57"/>
+        <arg name="eef_mass" value="$(arg eef_mass)"/>
 	</include>
 
 	<!-- Spawn arm -->
@@ -73,5 +76,5 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
         <!-- <rosparam param="map_origin_geo">[37.558542, -5.931074, 7.89]</rosparam> --><!-- [lat,lon,alt] -->
         <!-- PID params for Ardupilot setPose pose control -->
         <rosparam file="$(find ual_backend_mavros)/config/pid.yaml" />
-    </node>YYa 
+    </node>
 </launch>
