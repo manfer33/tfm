@@ -1,0 +1,6 @@
+<launch>
+    <!-- This version uses the openai_ros environments -->
+    <rosparam command="load" file="$(find arm_training)/config/armdrone_stabilize.yaml" />
+    <!-- Launch the training system -->
+    <node pkg="arm_training" name="armdrone_training" type="start_training.py" output="screen"/>
+</launch>
