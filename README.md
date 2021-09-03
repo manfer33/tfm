@@ -1,5 +1,11 @@
-## Overview
+## External Dependencies
+- [ROS](https://www.ros.org/)
+- [PX4 Firmware](https://pages.github.com/)
+- [UAL utils](https://github.com/grvcTeam/grvc-utils)
+- [Openai_ros](http://wiki.ros.org/openai_ros)
 
+-----------------------------
+## Task to solve with RL
 ### Details
 * Name: ArmUAV-v0  
 * Category: Classic Control
@@ -20,9 +26,10 @@ Type: Box(4)
 
 Num | Observation | Min | Max
 ---|---|---|---
-0 | Position Angle (pitch axis)  | -Inf | Inf
+0 | Position Angle (pitch axis)  | -1.5 | 1.5
 1 | Angular Velocity (pitch axis) | -Inf | Inf
-2 | Joints Effort | ~ -5&deg; | ~ 5&deg;
+2 | Arm joint position | -1.5 | 1.5
+3 | Arm joint velocity | -Inf | Inf
 
 ### Actions
 Type: Discrete(2)
@@ -32,19 +39,11 @@ Num | Action
 0 | Comand Vel Setpoint positive
 1 | Comand Vel Setpoint negative
 
-
 Note: The amount the velocity is reduced or increased is not fixed as it depends on the angle the UAV is pointing.
 
 ### Reward
 Reward is 1 for every step taken, including the termination step.
-The threshold is 475 for v1.
-
-### Starting State
-All observations are assigned a uniform random value between ±0.05.
 
 ### Episode Termination
 1. UAV Pitch Angle is more than ±30°
-2. Episode length is greater than 200 (500 for v1).
-
-### Solved Requirements
-Considered solved when the average reward is greater than or equal to 195.0 over 100 consecutive trials.
+2. Episode length is greater than 500
