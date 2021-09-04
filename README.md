@@ -2,7 +2,6 @@
 - [ROS](https://www.ros.org/)
 - [PX4 Firmware](https://pages.github.com/)
 - [UAL utils](https://github.com/grvcTeam/grvc-utils)
-- [Openai_ros](http://wiki.ros.org/openai_ros)
 
 -----------------------------
 ## Task to solve with RL
