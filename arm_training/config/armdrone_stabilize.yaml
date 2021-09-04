@@ -1,30 +1,30 @@
 armdrone: #namespace
     #qlearn parameters
-    alpha: 0.1
-    gamma: 0.7
-    epsilon: 0.9
-    epsilon_discount: 0.999
-    nepisodes: 200
+    alpha: 0.001
+    gamma: 0.95
+    epsilon: 1.0
+    epsilon_discount: 0.995
+    nepisodes: 500
     nsteps: 1000
     number_splits: 10 #set to change the number of state splits for the continuous problem and also the number of env_variable splits
 
-    n_actions: 2 # We have 2 actions, VelPos,VelNeg
+    n_actions: 3 # We have 2 actions, VelPos,VelNeg, DoNothing
 
-    vel_forward: 0.5 # Speed for going forward
-    vel_backward: -0.5 # Speed for going backward
+    vel_forward: 0.3 # Speed for going forward
+    vel_backward: -0.3 # Speed for going backward
 
     init_joint_arm_pose:
       qx_x: 0.0 # Same init value for all joints
 
     work_space: # 3D cube in which Drone is allowed to move
-      pitch_pose_max: 0.5
-      pitch_pose_min: -0.5
-      pitch_vel_max: 0.6
-      pitch_vel_min: -1
+      pitch_pose_max: 0.09 # max 0.1269
+      pitch_pose_min: -0.03 # min -0.012577
+      pitch_vel_max: 0.3
+      pitch_vel_min: -0.3
       joint_effort_max: 2.5 # q1_2
       joint_effort_min: -4  # q1_2
 
-    desired_point_epsilon: 0.02 # Error acceptable to consider that it has reached the desired point
+    desired_point_epsilon: 0.03 # Error acceptable to consider that it has reached the desired point
 
     desired_point_angle: 0.0 # Error acceptable to consider that it has reached the desired point
 

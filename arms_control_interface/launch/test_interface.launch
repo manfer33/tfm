@@ -1,0 +1,13 @@
+<launch>
+
+    <arg name="aci_backend" default="dummy"/>
+
+	<!-- robot_description for rviz -->
+	<param name="robot_description"
+	       command="$(find xacro)/xacro --inorder '$(find robots_description)/models/aeroarms/model.xacro'"/>
+
+	<node name="test_interface" pkg="arms_control_interface" type="test_interface" args="-aci_backend=$(arg aci_backend)"/>
+	<node name="robot_state_publisher" pkg="robot_state_publisher" type="state_publisher"/>
+	<node name="rviz" pkg="rviz" type="rviz" args="-d $(find arms_control_interface)/config/test_interface.rviz"/>
+
+</launch>

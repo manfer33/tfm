@@ -1,0 +1,54 @@
+<!--
+The MIT License (MIT)
+Copyright (c) 2016 GRVC University of Seville
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+-->
+<launch>
+    <!-- Configurable options -->
+    <arg name="robot_model" default="aeroarms"/>
+    <arg name="aci_backend" default="ros_control"/>
+    <arg name="description_package" default="robots_description"/>
+
+    <!-- Load arms postures -->
+    <rosparam file="$(eval find(description_package) + '/models/' + robot_model + '/config/arms_postures.yaml')" command="load"/>
+
+	<!-- Load the robot_description into the parameter server -->
+	<param name="robot_description"
+	command="$(eval 'xacro --inorder ' + find(description_package) + '/models/' + robot_model + '/model.xacro')"/>
+
+    <group if="$(eval aci_backend == 'ros_control')">
+        <!-- Set joints initial configuration (simulation only!) -->
+        <node name="init_joints" pkg="arms_control_interface" type="init_gzjoints.py" args="-model=$(arg robot_model)" respawn="false" output="screen"/>
+
+        <!-- Load control parameters -->
+        <rosparam file="$(eval find(description_package) + '/models/' + robot_model + '/config/arms_control.yaml')" command="load"/>
+
+        <!-- Load the controllers -->
+        <node name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false"
+        output="screen" ns="/aeroarms" args="joint_state_controller
+                                            q1_1_position_controller
+                                            q1_2_position_controller
+                                            q1_3_position_controller
+                                            q1_4_position_controller"/>
+    </group>
+
+    <group if="$(eval aci_backend == 'gazebo_animator')">
+        <!-- Set joints initial configuration (simulation only!) -->
+        <node name="init_joints" pkg="arms_control_interface" type="init_gzjoints.py" args="-model=$(arg robot_model)" respawn="false" output="screen"/>
+
+        <!-- Load control parameters -->
+        <rosparam file="$(eval find(description_package) + '/models/' + robot_model + '/config/arms_control.yaml')" command="load"/>
+
+        <!-- Load joint state controller -->
+        <node name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false"
+        output="screen" ns="/aeroarms" args="joint_state_controller"/>
+    </group>
+
+	<node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher"/>
+
+</launch>
